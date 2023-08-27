@@ -3,6 +3,7 @@ package View;
 import java.awt.Color;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class View extends JFrame{
 	
@@ -40,6 +41,19 @@ public class View extends JFrame{
 		
 	}
 
+	public void jopMessage(String mensaje, String titulo, int icono) {
+		
+		if(icono == 1) {
+			
+			JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.INFORMATION_MESSAGE);
+			
+		}else if(icono == 2) {
+			
+			JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.WARNING_MESSAGE);
+			
+		}
+	}
+	
 	public Tokens_Panel getPanel1() {
 		return panel1;
 	}

@@ -84,6 +84,14 @@ public class Tokenization_Panel extends JPanel{
 		this.field2 = field2;
 	}
 
+	public JButton getLoadTFileB() {
+		return loadTFileB;
+	}
+
+	public void setLoadTFileB(JButton loadTFileB) {
+		this.loadTFileB = loadTFileB;
+	}
+
 	public JButton getTokenizeButton() {
 		return tokenizeButton;
 	}
