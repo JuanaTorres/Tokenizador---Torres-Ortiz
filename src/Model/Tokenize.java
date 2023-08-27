@@ -1,22 +1,21 @@
 package Model;
-
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Tokenizer {
+public class Tokenize {
 
-    private LinkedList<TokenInfo> tokenInfos;
+    private LinkedList<Tokeninfo> tokenInfos;
     private LinkedList<Token> tokens;
 
-    public Tokenizer() {
+    public Tokenize() {
         super();
-        tokenInfos = new LinkedList<TokenInfo>();
+        tokenInfos = new LinkedList<Tokeninfo>();
         tokens = new LinkedList<Token>();
     }
 
     public void add(String regex, int token) {
-        tokenInfos.add(new TokenInfo(Pattern.compile("^(" + regex + ")"), token));
+        tokenInfos.add(new Tokeninfo(Pattern.compile("^(" + regex + ")"), token));
     }
 
     public void tokenize(String str) {
@@ -27,7 +26,7 @@ public class Tokenizer {
             System.out.println(s);
             int remaining = s.length();
             boolean match = false;
-            for (TokenInfo info : tokenInfos) {
+            for (Tokeninfo info : tokenInfos) {
                 Matcher m = info.regex.matcher(s);
                 if (m.find()) {
                     match = true;
@@ -38,7 +37,7 @@ public class Tokenizer {
                 }
             }
             if (!match) {
-                throw new LexerException("Unexpected character in input: " + s);
+                throw new Lexerexception("Unexpected character in input: " + s);
             }
         }
     }
