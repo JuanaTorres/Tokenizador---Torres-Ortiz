@@ -23,7 +23,7 @@ public class Tokenize {
         int totalLength = s.length();
         tokens.clear();
         while (!s.equals("")) {
-            System.out.println(s);
+            //System.out.println(s);
             int remaining = s.length();
             boolean match = false;
             for (Tokeninfo info : tokenInfos) {

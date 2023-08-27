@@ -77,9 +77,10 @@ public class Controller implements ActionListener{
 				BufferedReader br = new BufferedReader(fr);
 				String line = "", loadgui = "";
 				while((line = br.readLine())!=null) {
-					tne.tokenize(line.toString());
+					//tne.tokenize(line.trim().toString());
 					loadgui = loadgui + line + "\n";
 				}
+				tne.tokenize(loadgui.trim().toString());
 				gui.getPanel2().getInputTextArea().setText(loadgui);
 				br.close();
 				fr.close();
@@ -90,9 +91,9 @@ public class Controller implements ActionListener{
 			}
 			
 		}else if(e.getActionCommand().equals("Tokenize")) {
-			String out;
+			String out="";
 			for(Token ton : tne.getTokens()){
-				out="[Token:" + ton.token + " Lexema:" + ton.lexeme + " Posicion:" + ton.pos + "]";
+				out+="[Token:" + ton.token + " Lexema:" + ton.lexeme + " Posicion:" + ton.pos + "]\n";
 				gui.getPanel2().getOutputTextArea().setText(out);
 			}
 		
