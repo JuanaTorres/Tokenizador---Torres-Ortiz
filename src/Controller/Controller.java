@@ -55,17 +55,16 @@ public class Controller implements ActionListener {
                             String splitS[] = line.split(",");
                             if (splitS.length == 2) {
                                 int tokenid = Integer.parseInt(splitS[1].trim());
-                                //System.out.println(splitS[0].trim()+"-"+tokenid);
                                 load_gui = load_gui + line + "\n";
                                 try {
                                     tne.add(splitS[0].trim(), tokenid);
+                                    gui.getPanel1().getTokenTextArea().setText(load_gui);
+                                    gui.getPanel1().getValidateTokensB().setEnabled(true);
                                 } catch (PatternSyntaxException ep) {
                                     System.out.println("entro");
                                     this.err = true;
                                 }
-
                             }
-                            gui.getPanel1().getTokenTextArea().setText(load_gui);
                         }
                         br.close();
                         fr.close();
@@ -83,6 +82,11 @@ public class Controller implements ActionListener {
                 gui.jopMessage("Ocurrio un Error\nRevise la declaracion de la expresion regular",
                         "Error al Validar Tokens",
                         2);
+            } else {
+                gui.jopMessage("El archivo se cargo correctamente",
+                        "Carga Exitosa",
+                        1);
+                gui.getPanel2().getLoadTFileB().setEnabled(true);
             }
 
         } else if (e.getActionCommand().equals("Load T.File")) {
@@ -107,6 +111,7 @@ public class Controller implements ActionListener {
                         try {
                             tne.tokenize(loadgui.trim().toString());
                             gui.getPanel2().getInputTextArea().setText(loadgui);
+                            gui.getPanel2().getTokenizeButton().setEnabled(true);
                         } catch (Lexerexception el) {
                             gui.jopMessage("Ocurrio un Error\nno se esta un caracter en los tokens",
                                     "Error al Validar Tokens",
@@ -120,12 +125,13 @@ public class Controller implements ActionListener {
                     }
                 }
             } else if (result == JFileChooser.CANCEL_OPTION) {
-                System.out.println("Operación de carga de archivo cancelada.");
+                System.out.println("Load File Operation Canceled.");
             }
         } else if (e.getActionCommand().equals("Tokenize")) {
-            String out = "";
+            gui.getPanel2().getOutputTextArea().setText("==============TOKENS=================\n");
+			String out = gui.getPanel2().getOutputTextArea().getText() + "";
             for (Token ton : tne.getTokens()) {
-                out += "[Token:" + ton.token + " Lexema:" + ton.lexeme + " Posicion:" + ton.pos + "]\n";
+                out += "[    Token:" + ton.token + "\tLexema:" + ton.lexeme + "\tPosicion:" + ton.pos + "     ]\n";
                 gui.getPanel2().getOutputTextArea().setText(out);
             }
 

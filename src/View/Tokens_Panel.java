@@ -41,6 +41,7 @@ public class Tokens_Panel extends JPanel{
         
         validateTokensB = new JButton("Validate Tokens");
         validateTokensB.setBounds(170, 330, 130, 50);
+		validateTokensB.setEnabled(false);
         add(validateTokensB);
         
     }
