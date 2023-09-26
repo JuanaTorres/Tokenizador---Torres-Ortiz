@@ -10,8 +10,10 @@ import java.util.regex.PatternSyntaxException;
 import javax.swing.JFileChooser;
 
 import Model.Lexerexception;
+import Model.ParserException;
 import Model.Token;
 import Model.Tokenize;
+import Model.parser.Parser;
 import View.View;
 
 public class Controller implements ActionListener {
@@ -19,6 +21,7 @@ public class Controller implements ActionListener {
     private View gui;
     private Tokenize tne;
     private Boolean err;
+    private Parser p;
 
     public Controller() {
         err = false;
@@ -28,6 +31,7 @@ public class Controller implements ActionListener {
         gui.getPanel2().getLoadTFileB().addActionListener(this);
         gui.getPanel2().getTokenizeButton().addActionListener(this);
         tne = new Tokenize();
+        p = new Parser();
 
     }
 
@@ -51,8 +55,8 @@ public class Controller implements ActionListener {
                         BufferedReader br = new BufferedReader(fr);
                         String line = "", load_gui = "";
                         while ((line = br.readLine()) != null) {
-                            /// el caracter, numero
-                            String splitS[] = line.split(",");
+                            /// el caracter numero
+                            String splitS[] = line.split(" ");
                             if (splitS.length == 2) {
                                 int tokenid = Integer.parseInt(splitS[1].trim());
                                 load_gui = load_gui + line + "\n";
@@ -128,13 +132,22 @@ public class Controller implements ActionListener {
                 System.out.println("Load File Operation Canceled.");
             }
         } else if (e.getActionCommand().equals("Tokenize")) {
+            String out="";
+            try {
             gui.getPanel2().getOutputTextArea().setText("==============TOKENS=================\n");
-			String out = gui.getPanel2().getOutputTextArea().getText() + "";
+			out = gui.getPanel2().getOutputTextArea().getText() + "";
             for (Token ton : tne.getTokens()) {
-                out += "[    Token:" + ton.token + "\tLexema:" + ton.lexeme + "\tPosicion:" + ton.pos + "     ]\n";
-                gui.getPanel2().getOutputTextArea().setText(out);
+                out += "[    Token:" + ton.token + "\tLexema:" + ton.sequence + "\tPosicion:" + ton.pos + "     ]\n";
             }
-
+            } catch (ParserException e1) {
+                gui.getPanel2().getOutputTextArea().setText("");
+                gui.jopMessage(e1.getMessage()+"\n",
+                        "Error al Validar Tokens",
+                        2);
+            }
+            out+=("==============parser=================\n");
+            out+=(p.parse(tne.getTokens()));
+            gui.getPanel2().getOutputTextArea().setText(out);
         }
 
     }
