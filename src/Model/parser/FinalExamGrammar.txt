@@ -1,0 +1,46 @@
+G {
+    T 	= {[, ], {, }, ',', FreeText, NUMBER, CTEGORICAL, BINARY}
+    
+    NT 	= {<Document>, <ModelName>, <ModelFamily>, <ModelFamilyName>, <Model_Type>, <ModelDescription>, <Inputs>,
+	   <InputList>, <A>, <InputName>, <InputType>, <Outputs>, <OutputsList>, <B>, <Output>, <OutputName>,
+	   <OutputType>, <Model>, <Layer>, <LayerName>, <LayerParams>, <LayerNumbers>, <D>
+	  }
+
+    S 	= {<Document>}
+
+    P 	= {
+	    <Document>		::= <Moden_Name><Model_Family><Model_Type><Model_Description><Inputs><Outputs><Model>
+	    <ModelName>		::= Model_Name:FreeText
+	    <ModelFamily>	::= Model_Family:<ModelFamilyName>|Epsilon
+	    <ModelFamilyName>	::= CLASSIFIER|REGRESSION|CLUSTERING
+	    <ModelType>		::= Model_Type:<ModelTypename>|Epsilon
+	    <ModelTypeName>	::= ANN|Tree|RandomForrest|SVM|DecisionTree
+	    <ModelDescription>	::= Model_Description:<putName>
+	    
+	    <Inputs>		::= Inputs{<InputList>}
+	    <InputsList>	::= <Input><A>
+	    <A>			::= <Input><A>|Epsilon
+	    <Input>		::= Input{<InputName><InputType>}
+	    <InputName>		::= Input_Name:<putName>
+	    <InputType>		::= Input_Type:<putType>
+	    
+	    <Outputs>		::= Outputs{<OutputList>}
+	    <OutputsList>	::= <Output><B>
+	    <B>			::= <Input><B>|Epsilon
+	    <Output>		::= Output{<putName><putType>}
+	    <OutputName>	::= Output_Name:<putName> 
+	    <OutputType>	::= Output_Type:<putType> 
+	    
+	    <Model>		::= Model{<ListLayers>}
+	    <ListLayers>	::= <Layer><C>
+	    <C>			::= <Layer<C>|Epsilon
+	    <Layer>		::= Layer{<LayerName><LayerParams>}
+	    <LayerName>		::= Layer_Name: <putName>
+	    <LayerParams>	::= Layer_Params: [ParamNumbers]
+	    <ParamNumbers>	::= NUMBER,<D>
+	    <D>			::= NUMBER,<D>|Epsilon
+
+	    <putName>		::= FreeText
+	    <putType>		::= NUMBER|CATEGORICAL|BINARY
+	}
+}
