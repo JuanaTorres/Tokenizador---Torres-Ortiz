@@ -15,20 +15,20 @@ G {
 	    <ModelFamilyName>	::= CLASSIFIER|REGRESSION|CLUSTERING
 	    <ModelType>		::= Model_Type:<ModelTypename>
 	    <ModelTypeName>	::= ANN|Tree|RandomForrest|SVM|DecisionTree
-	    <ModelDescription>	::= Model_Description:<putName>
+	    <ModelDescription>	::= Model_Description:FreeText
 	    
 	    <Inputs>		::= Inputs{<InputList>}
 	    <InputsList>	::= <Input><A>
 	    <A>			::= <Input><A>|Epsilon
 	    <Input>		::= Input{<InputName><InputType>}
-	    <InputName>		::= Input_Name:<putName>
+	    <InputName>		::= Input_Name:FreeText
 	    <InputType>		::= Input_Type:<putType>
 	    
 	    <Outputs>		::= Outputs{<OutputList>}
 	    <OutputsList>	::= <Output><B>
 	    <B>			::= <Input><B>|Epsilon
 	    <Output>		::= Output{<putName><putType>}
-	    <OutputName>	::= Output_Name:<putName> 
+	    <OutputName>	::= Output_Name:FreeText
 	    <OutputType>	::= Output_Type:<putType> 
 	    
 	    <Model>		::= Model{<Layers>}
@@ -36,7 +36,7 @@ G {
 	    <ListLayers>	::= <Layer><C>
 	    <C>			::= <Layer<C>|Epsilon
 	    <Layer>		::= Layer{<LayerName><LayerParams>}
-	    <LayerName>		::= Layer_Name: <putName>
+	    <LayerName>		::= Layer_Name: FreeText
 	    <LayerParams>	::= Layer_Params: [ParamNumbers]
 	    <ParamNumbers>	::= NUMBER,<D>
 	    <D>			::= NUMBER<E>|Epsilon
