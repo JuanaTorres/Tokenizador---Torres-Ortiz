@@ -59,17 +59,17 @@ public class Parser {
                 if(lookahead.token==36){
                     nextToken();
                 }else{
-                    throw new ParserException("Falta free text "
-                            + lookahead.sequence + " found instead");
+                    throw new ParserException("Falta free text, "
+                            + lookahead.sequence + " se encontro");
                 }
             }else{
-                throw new ParserException("Se espera :"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera :, "
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Model_Name "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Model_Name, "
+                    + lookahead.sequence + " se encontro");
         }
     }
     private void modelFamily() {
@@ -79,21 +79,21 @@ public class Parser {
                 nextToken();
                 modelFamilyName();
             }else{
-                throw new ParserException("Se espera :"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera :, "
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Model_Family "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Model_Family, "
+                    + lookahead.sequence + " se encontro");
         }
     }
     private void modelFamilyName() {
         if (lookahead.token==24||lookahead.token==25||lookahead.token==26){
             nextToken();
         }else{
-            throw new ParserException("Falta CLASSIFIER o REGRESSION o CLUSTERING"
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Falta CLASSIFIER o REGRESSION o CLUSTERING, "
+                    + lookahead.sequence + " se encontro");
         }
     }
     private void modelType() {
@@ -103,18 +103,18 @@ public class Parser {
                 nextToken();
                 modelTypeName();
             }else{
-                throw new ParserException("Se espera :"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera :, "
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Model_Type  "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Model_Type, "
+                    + lookahead.sequence + " se encontro");
         }
     }private void modelTypeName() {
         if(lookahead.token!=27&&lookahead.token!=28&&lookahead.token!=29&&lookahead.token!=30&&lookahead.token!=31){
             throw new ParserException("Falta ANN, Tree, RandomForrest, SVM o DecisionTree "
-                    + lookahead.sequence + " found instead");
+                    + lookahead.sequence + " se encontro");
         }else{
             nextToken();
         }
@@ -127,17 +127,17 @@ public class Parser {
                 if(lookahead.token==36){
                     nextToken();
                 }else{
-                    throw new ParserException("Falta free text "
-                            + lookahead.sequence + " found instead");
+                    throw new ParserException("Falta free text, "
+                            + lookahead.sequence + " se encontro");
                 }
             }else{
                 throw new ParserException("Se espera :"
-                        + lookahead.sequence + " found instead");
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Model_Type  "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Model_Type, "
+                    + lookahead.sequence + " se encontro");
         }
     }private void inputs() {
         if (lookahead.token == 11){//Inputs
@@ -146,18 +146,18 @@ public class Parser {
                 nextToken();
                 inputsList();
                 if(lookahead.token!=3){
-                    throw new ParserException("Se espera }"
-                            + lookahead.sequence + " found instead");
+                    throw new ParserException("Se espera }, "
+                            + lookahead.sequence + " se encontro");
                 }
                 nextToken();
             }else{
-                throw new ParserException("Se espera {"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera {, "
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Inputs "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Inputs, "
+                    + lookahead.sequence + " se encontro");
         }
     }private void inputsList() {
         input();
@@ -176,17 +176,17 @@ public class Parser {
                 inputName();
                 inputType();
                 if(lookahead.token!=3){
-                    throw new ParserException("Se espera }"
-                            + lookahead.sequence + " found instead");
+                    throw new ParserException("Se espera }, "
+                            + lookahead.sequence + " se encontro");
                 }nextToken();
             }else{
-                throw new ParserException("Se espera {"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera {,"
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Input "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Input, "
+                    + lookahead.sequence + " se encontro");
         }
     }private void inputName() {
         if (lookahead.token == 13){//Input_Name
@@ -196,17 +196,17 @@ public class Parser {
                 if(lookahead.token==36){
                     nextToken();
                 }else{
-                    throw new ParserException("Falta free text "
-                            + lookahead.sequence + " found instead");
+                    throw new ParserException("Falta free text, "
+                            + lookahead.sequence + " se encontro");
                 }
             }else{
-                throw new ParserException("Se espera :"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera :, "
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Input_Name  "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Input_Name, "
+                    + lookahead.sequence + " se encontro");
         }
     }private void inputType() {
         if (lookahead.token == 14){//Input_Type
@@ -215,13 +215,13 @@ public class Parser {
                 nextToken();
                 putType();
             }else{
-                throw new ParserException("Se espera :"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera :, "
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Input_Name  "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Input_Name, "
+                    + lookahead.sequence + " se encontro");
         }
     }private void outputs() {
         if (lookahead.token == 15){//Outputs
@@ -230,17 +230,17 @@ public class Parser {
                 nextToken();
                 outputsList();
                 if(lookahead.token!=3){
-                    throw new ParserException("Se espera }"
-                            + lookahead.sequence + " found instead");
+                    throw new ParserException("Se espera }, "
+                            + lookahead.sequence + " se encontro");
                 }nextToken();
             }else{
-                throw new ParserException("Se espera {"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera {, "
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Outputs "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Outputs, "
+                    + lookahead.sequence + " se encontro");
         }
     }private void outputsList() {
         output();
@@ -261,17 +261,17 @@ public class Parser {
                 outputName();
                 outputType();
                 if(lookahead.token!=3){
-                    throw new ParserException("Se espera }"
-                            + lookahead.sequence + " found instead");
+                    throw new ParserException("Se espera },"
+                            + lookahead.sequence + " se encontro");
                 }nextToken();
             }else{
-                throw new ParserException("Se espera {"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera {,"
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Input "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Input, "
+                    + lookahead.sequence + " se encontro");
         }
     }
     private void outputName() {
@@ -282,17 +282,17 @@ public class Parser {
                 if(lookahead.token==36){
                     nextToken();
                 }else{
-                    throw new ParserException("Falta free text "
-                            + lookahead.sequence + " found instead");
+                    throw new ParserException("Falta free text, "
+                            + lookahead.sequence + " se encontro");
                 }
             }else{
-                throw new ParserException("Se espera :"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera :,"
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Input_Name  "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Input_Name,  "
+                    + lookahead.sequence + " se encontro");
         }
     }private void outputType() {
         if (lookahead.token == 18){//Output_Type
@@ -301,13 +301,13 @@ public class Parser {
                 nextToken();
                 putType();
             }else{
-                throw new ParserException("Se espera :"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera :,"
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Input_Name  "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Input_Name, "
+                    + lookahead.sequence + " se encontro");
         }
     }private void model() {
         if (lookahead.token == 19){//Model
@@ -316,17 +316,17 @@ public class Parser {
                 nextToken();
                 layers();
                 if(lookahead.token!=3){
-                    throw new ParserException("Se espera }"
-                            + lookahead.sequence + " found instead");
+                    throw new ParserException("Se espera },"
+                            + lookahead.sequence + " se encontro");
                 }nextToken();
             }else{
-                throw new ParserException("Se espera {"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera {, "
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Model  "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Model, "
+                    + lookahead.sequence + " se encontro");
         }
     }
     private void layers(){
@@ -336,17 +336,17 @@ public class Parser {
                 nextToken();
                 listLayers();
                 if(lookahead.token!=3){
-                    throw new ParserException("Se espera }"
-                            + lookahead.sequence + " found instead");
+                    throw new ParserException("Se espera }, "
+                            + lookahead.sequence + " se encontro");
                 }nextToken();
             }else{
-                throw new ParserException("Se espera {"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera {, "
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Layers "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Layers, "
+                    + lookahead.sequence + " se encontro");
         }
     }
     private void listLayers() {
@@ -368,17 +368,17 @@ public class Parser {
                 layerName();
                 layerParams();
                 if(lookahead.token!=3){
-                    throw new ParserException("Se espera }"
-                            + lookahead.sequence + " found instead");
+                    throw new ParserException("Se espera }, "
+                            + lookahead.sequence + " se encontro");
                 }nextToken();
             }else{
-                throw new ParserException("Se espera {"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera {,"
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Layer "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Layer, "
+                    + lookahead.sequence + " se encontro");
         }
     }
     private void layerName() {
@@ -389,17 +389,17 @@ public class Parser {
                 if(lookahead.token==36){
                     nextToken();
                 }else{
-                    throw new ParserException("Falta free text "
-                            + lookahead.sequence + " found instead");
+                    throw new ParserException("Falta free text,  "
+                            + lookahead.sequence + " se encontro");
                 }
             }else{
-                throw new ParserException("Se espera :"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera :, "
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Layer_Name   "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Layer_Name, "
+                    + lookahead.sequence + " se encontro");
         }
     }
     private void layerParams() {
@@ -411,21 +411,21 @@ public class Parser {
                     nextToken();
                     paramNumbers();
                     if(lookahead.token!=5){//]
-                        throw new ParserException("Se espera ]"
-                                + lookahead.sequence + " found instead");
+                        throw new ParserException("Se espera ], "
+                                + lookahead.sequence + " se encontro");
                     }nextToken();
                 } else{
-                    throw new ParserException("Se espera ]"
-                            + lookahead.sequence + " found instead");
+                    throw new ParserException("Se espera ], "
+                            + lookahead.sequence + " se encontro");
                 }
             }else{
-                throw new ParserException("Se espera :"
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera :, "
+                        + lookahead.sequence + " se encontro");
             }
 
         }else{
-            throw new ParserException("Se espera el termino Layer_Params   "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino Layer_Params, "
+                    + lookahead.sequence + " se encontro");
         }
     }
     private void paramNumbers() {
@@ -435,12 +435,12 @@ public class Parser {
                 nextToken();
                 d();
             }else{
-                throw new ParserException("Se espera una , "
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera una , :"
+                        + lookahead.sequence + " se encontro");
             }
         }else{
-            throw new ParserException("Se espera un numero   "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera un numero, "
+                    + lookahead.sequence + " se encontro");
         }
     }
     private void d() {
@@ -449,8 +449,8 @@ public class Parser {
                 nextToken();
                 e();
             }else{
-                throw new ParserException("Se espera un numero   "
-                        + lookahead.sequence + " found instead");
+                throw new ParserException("Se espera un numero, "
+                        + lookahead.sequence + " se encontro");
             }
         }else{
         }
@@ -462,15 +462,15 @@ public class Parser {
                     d();
                 }else{
                     throw new ParserException("Se espera una , "
-                            + lookahead.sequence + " found instead");
+                            + lookahead.sequence + " se encontro");
                 }
         }else{
         }
     }
     private void putType() {
         if(lookahead.token !=32 &&lookahead.token !=33&&lookahead.token !=34){
-            throw new ParserException("Se espera el termino NUMBER o CATEGORICAL o BINARY   "
-                    + lookahead.sequence + " found instead");
+            throw new ParserException("Se espera el termino NUMBER o CATEGORICAL o BINARY, "
+                    + lookahead.sequence + " se encontro");
         }else{
             nextToken();
         }

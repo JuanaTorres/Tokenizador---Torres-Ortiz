@@ -150,12 +150,19 @@ public class Controller implements ActionListener {
             } catch (ParserException e1) {
                 gui.getPanel2().getOutputTextArea().setText("");
                 gui.jopMessage(e1.getMessage()+"\n",
-                        "Error al Validar Tokens",
+                        "Error al tokenizar ",
                         2);
             }
+            try {
             out+=("==============parser=================\n");
             out+=(p.parse(tne.getTokens()));
             gui.getPanel2().getOutputTextArea().setText(out);
+            } catch (ParserException el) {
+                gui.getPanel2().getOutputTextArea().setText("");
+                gui.jopMessage(el.getMessage()+"\n",
+                        "Error al Parser",
+                        2);
+            }
         }
 
     }
