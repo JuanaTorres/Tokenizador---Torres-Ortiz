@@ -9,11 +9,11 @@ G {
     S 	= {<Document>}
 
     P 	= {
-	    <Document>		::= <Moden_Name><Model_Family><Model_Type><Model_Description><Inputs><Outputs><Model>
+	    <Document>		::= <ModenName><ModelFamily><ModelType><ModelDescription><Inputs><Outputs><Model>
 	    <ModelName>		::= Model_Name:FreeText
-	    <ModelFamily>	::= Model_Family:<ModelFamilyName>|Epsilon
+	    <ModelFamily>	::= Model_Family:<ModelFamilyName>
 	    <ModelFamilyName>	::= CLASSIFIER|REGRESSION|CLUSTERING
-	    <ModelType>		::= Model_Type:<ModelTypename>|Epsilon
+	    <ModelType>		::= Model_Type:<ModelTypename>
 	    <ModelTypeName>	::= ANN|Tree|RandomForrest|SVM|DecisionTree
 	    <ModelDescription>	::= Model_Description:<putName>
 	    
@@ -31,16 +31,16 @@ G {
 	    <OutputName>	::= Output_Name:<putName> 
 	    <OutputType>	::= Output_Type:<putType> 
 	    
-	    <Model>		::= Model{<ListLayers>}
+	    <Model>		::= Model{<Layers>}
+	    <Layers>  ::= Layers{<ListLayers>}
 	    <ListLayers>	::= <Layer><C>
 	    <C>			::= <Layer<C>|Epsilon
 	    <Layer>		::= Layer{<LayerName><LayerParams>}
 	    <LayerName>		::= Layer_Name: <putName>
 	    <LayerParams>	::= Layer_Params: [ParamNumbers]
 	    <ParamNumbers>	::= NUMBER,<D>
-	    <D>			::= NUMBER,<D>|Epsilon
-
-	    <putName>		::= FreeText
+	    <D>			::= NUMBER<E>|Epsilon
+        <E>         ::= ,<D>| Epsilon
 	    <putType>		::= NUMBER|CATEGORICAL|BINARY
 	}
 }

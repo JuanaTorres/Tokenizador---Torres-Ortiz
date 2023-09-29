@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import javax.swing.JFileChooser;
@@ -56,7 +58,7 @@ public class Controller implements ActionListener {
                         String line = "", load_gui = "";
                         while ((line = br.readLine()) != null) {
                             /// el caracter numero
-                            String splitS[] = line.split(" ");
+                            String splitS[] = line.split("=");
                             if (splitS.length == 2) {
                                 int tokenid = Integer.parseInt(splitS[1].trim());
                                 load_gui = load_gui + line + "\n";
@@ -113,7 +115,13 @@ public class Controller implements ActionListener {
                             loadgui = loadgui + line + "\n";
                         }
                         try {
-                            tne.tokenize(loadgui.trim().toString());
+                            //Quita los comentarios
+                            String pattern = "(#.*$)|(\"\"\".*?\"\"\")";
+                            Pattern regexPattern = Pattern.compile(pattern, Pattern.MULTILINE);
+                            Matcher matcher = regexPattern.matcher(loadgui);
+                            String comm = matcher.replaceAll("");
+
+                            tne.tokenize(comm.trim().toString());
                             gui.getPanel2().getInputTextArea().setText(loadgui);
                             gui.getPanel2().getTokenizeButton().setEnabled(true);
                         } catch (Lexerexception el) {

@@ -22,7 +22,7 @@ public class Parser {
                 
         lookahead = this.tokens.getFirst();
 
-        ruleFile();
+        document();
 
         if (lookahead.token != Token.EPSILON) {
             throw new ParserException("Unexpected symbol " + lookahead.sequence + "  found");
@@ -41,158 +41,438 @@ public class Parser {
         }
     }
 
-    private void ruleFile() {
-        rules();
+    private void document() {
+        modelName();
+        modelFamily();
+        modelType();
+        modelDescription();
+        inputs();
+        outputs();
+        model();
     }
 
-    private void rules() {
-        rule();
-        a();
-    }
-
-    private void rule() {
-        if (lookahead.token == 1) {//IF
+    private void modelName() {
+        if (lookahead.token == 7){//Model_Name
             nextToken();
-            if(lookahead.token == 4) {//[
+            if(lookahead.token==1){//:
                 nextToken();
-                expression();
-                if (lookahead.token == 5) {
-                    nextToken();//]
-                    if (lookahead.token==6){//THEN
-                        nextToken();
-                        actions();
-                    }else{
-                        throw new ParserException("no hay THEN "
-                                + lookahead.sequence + " found instead");
-                    }
-                }else{
-                    throw new ParserException("Se espera] "
-                            + lookahead.sequence + " found instead");
-                }
-            }else {
-                throw new ParserException("se espera[ "
-                        + lookahead.sequence + " found instead");
-            }
-        } else {
-        }
-    }
-
-    private void a() {
-        if(lookahead.token != Token.EPSILON){
-            rules();
-        }else{
-        }
-    }
-
-    private void actions() {
-        action();
-        b();
-    }
-
-    private void b() {
-        if (lookahead.token == 14){
-            actions();
-        }else{
-        }
-    }
-
-    private void action() {
-        if (lookahead.token == 14){
-            nextToken();
-            if(lookahead.token==2){
-                nextToken();
-                parameters();
-                if(lookahead.token!=3){
-                    throw new ParserException("2. Closing brackets expected and "
-                            + lookahead.sequence + " found instead");
-                }
-                nextToken();
-            }
-        }else{
-        }
-    }
-
-    private void parameters() {
-        if(lookahead.token==13){
-            nextToken();
-            c();
-        }
-    }
-
-    private void c() {
-        if(lookahead.token==11){
-            nextToken();
-            parameters();
-        }else{
-
-        }
-    }
-
-    private void expression() {
-        term();
-        ep();
-    }
-
-    private void ep(){
-        if(lookahead.token==16){
-            nextToken();
-            term();
-            ep();
-        }else{
-
-        }
-    }
-    private void term(){
-        factor();
-        tp();
-    }
-    private void tp(){
-        if(lookahead.token==15){
-            nextToken();
-            factor();
-            tp();
-        }else {
-
-        }
-    }
-    private void factor(){
-        if(lookahead.token==12){
-            fp();
-        }else{
-        fp();
-        }
-    }
-    private void fp(){
-        if(lookahead.token==2){
-            nextToken();
-            expression();
-            if(lookahead.token!=3){
-                throw new ParserException("2. Closing brackets expected and "
-                        + lookahead.sequence + " found instead");
-            }nextToken();
-        }else {
-            simpleExp();
-        }
-    }
-    private void simpleExp(){
-        if(lookahead.token==14){
-            nextToken();
-            if(lookahead.token==7||lookahead.token==8||lookahead.token==9
-                    ||lookahead.token==10){
-                nextToken();
-                if(lookahead.token==13){
+                if(lookahead.token==36){
                     nextToken();
                 }else{
-                    throw new ParserException("necesita un numero "
+                    throw new ParserException("Falta free text "
                             + lookahead.sequence + " found instead");
                 }
             }else{
-                throw new ParserException("no hay comparator "
+                throw new ParserException("Se espera :"
                         + lookahead.sequence + " found instead");
             }
-        }else {
-            throw new ParserException("2. no hay nombre "
+
+        }else{
+            throw new ParserException("Se espera el termino Model_Name "
                     + lookahead.sequence + " found instead");
+        }
+    }
+    private void modelFamily() {
+        if (lookahead.token == 8){//Model_Family
+            nextToken();
+            if(lookahead.token==1){//:
+                nextToken();
+                modelFamilyName();
+            }else{
+                throw new ParserException("Se espera :"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Model_Family "
+                    + lookahead.sequence + " found instead");
+        }
+    }
+    private void modelFamilyName() {
+        if (lookahead.token==24||lookahead.token==25||lookahead.token==26){
+            nextToken();
+        }else{
+            throw new ParserException("Falta CLASSIFIER o REGRESSION o CLUSTERING"
+                    + lookahead.sequence + " found instead");
+        }
+    }
+    private void modelType() {
+        if (lookahead.token == 9){//Model_Type
+            nextToken();
+            if(lookahead.token==1){//:
+                nextToken();
+                modelTypeName();
+            }else{
+                throw new ParserException("Se espera :"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Model_Type  "
+                    + lookahead.sequence + " found instead");
+        }
+    }private void modelTypeName() {
+        if(lookahead.token!=27&&lookahead.token!=28&&lookahead.token!=29&&lookahead.token!=30&&lookahead.token!=31){
+            throw new ParserException("Falta ANN, Tree, RandomForrest, SVM o DecisionTree "
+                    + lookahead.sequence + " found instead");
+        }else{
+            nextToken();
+        }
+    }
+    private void modelDescription() {
+        if (lookahead.token == 10){//Model_Type
+            nextToken();
+            if(lookahead.token==1){//:
+                nextToken();
+                if(lookahead.token==36){
+                    nextToken();
+                }else{
+                    throw new ParserException("Falta free text "
+                            + lookahead.sequence + " found instead");
+                }
+            }else{
+                throw new ParserException("Se espera :"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Model_Type  "
+                    + lookahead.sequence + " found instead");
+        }
+    }private void inputs() {
+        if (lookahead.token == 11){//Inputs
+            nextToken();
+            if(lookahead.token==2){//{
+                nextToken();
+                inputsList();
+                if(lookahead.token!=3){
+                    throw new ParserException("Se espera }"
+                            + lookahead.sequence + " found instead");
+                }
+                nextToken();
+            }else{
+                throw new ParserException("Se espera {"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Inputs "
+                    + lookahead.sequence + " found instead");
+        }
+    }private void inputsList() {
+        input();
+        a();
+    }private void a() {
+        if(lookahead.token == 12){
+            input();
+            a();
+        }else{
+        }
+    }private void input() {
+        if (lookahead.token == 12){//Input
+            nextToken();
+            if(lookahead.token==2){//{
+                nextToken();
+                inputName();
+                inputType();
+                if(lookahead.token!=3){
+                    throw new ParserException("Se espera }"
+                            + lookahead.sequence + " found instead");
+                }nextToken();
+            }else{
+                throw new ParserException("Se espera {"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Input "
+                    + lookahead.sequence + " found instead");
+        }
+    }private void inputName() {
+        if (lookahead.token == 13){//Input_Name
+            nextToken();
+            if(lookahead.token==1){//:
+                nextToken();
+                if(lookahead.token==36){
+                    nextToken();
+                }else{
+                    throw new ParserException("Falta free text "
+                            + lookahead.sequence + " found instead");
+                }
+            }else{
+                throw new ParserException("Se espera :"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Input_Name  "
+                    + lookahead.sequence + " found instead");
+        }
+    }private void inputType() {
+        if (lookahead.token == 14){//Input_Type
+            nextToken();
+            if(lookahead.token==1){//:
+                nextToken();
+                putType();
+            }else{
+                throw new ParserException("Se espera :"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Input_Name  "
+                    + lookahead.sequence + " found instead");
+        }
+    }private void outputs() {
+        if (lookahead.token == 15){//Outputs
+            nextToken();
+            if(lookahead.token==2){//{
+                nextToken();
+                outputsList();
+                if(lookahead.token!=3){
+                    throw new ParserException("Se espera }"
+                            + lookahead.sequence + " found instead");
+                }nextToken();
+            }else{
+                throw new ParserException("Se espera {"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Outputs "
+                    + lookahead.sequence + " found instead");
+        }
+    }private void outputsList() {
+        output();
+        b();
+    }
+    private void b() {
+        if(lookahead.token == 16){
+            output();
+            b();
+        }else{
+        }
+    }
+    private void output() {
+        if (lookahead.token == 16){//Output
+            nextToken();
+            if(lookahead.token==2){//{
+                nextToken();
+                outputName();
+                outputType();
+                if(lookahead.token!=3){
+                    throw new ParserException("Se espera }"
+                            + lookahead.sequence + " found instead");
+                }nextToken();
+            }else{
+                throw new ParserException("Se espera {"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Input "
+                    + lookahead.sequence + " found instead");
+        }
+    }
+    private void outputName() {
+        if (lookahead.token == 17){//Output_Name
+            nextToken();
+            if(lookahead.token==1){//:
+                nextToken();
+                if(lookahead.token==36){
+                    nextToken();
+                }else{
+                    throw new ParserException("Falta free text "
+                            + lookahead.sequence + " found instead");
+                }
+            }else{
+                throw new ParserException("Se espera :"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Input_Name  "
+                    + lookahead.sequence + " found instead");
+        }
+    }private void outputType() {
+        if (lookahead.token == 18){//Output_Type
+            nextToken();
+            if(lookahead.token==1){//:
+                nextToken();
+                putType();
+            }else{
+                throw new ParserException("Se espera :"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Input_Name  "
+                    + lookahead.sequence + " found instead");
+        }
+    }private void model() {
+        if (lookahead.token == 19){//Model
+            nextToken();
+            if(lookahead.token==2){//{
+                nextToken();
+                layers();
+                if(lookahead.token!=3){
+                    throw new ParserException("Se espera }"
+                            + lookahead.sequence + " found instead");
+                }nextToken();
+            }else{
+                throw new ParserException("Se espera {"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Model  "
+                    + lookahead.sequence + " found instead");
+        }
+    }
+    private void layers(){
+        if (lookahead.token == 20){//Layers
+            nextToken();
+            if(lookahead.token==2){//{
+                nextToken();
+                listLayers();
+                if(lookahead.token!=3){
+                    throw new ParserException("Se espera }"
+                            + lookahead.sequence + " found instead");
+                }nextToken();
+            }else{
+                throw new ParserException("Se espera {"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Layers "
+                    + lookahead.sequence + " found instead");
+        }
+    }
+    private void listLayers() {
+        layer();
+        c();
+    }
+    private void c() {
+        if(lookahead.token == 21){
+            layer();
+            c();
+        }else{
+        }
+    }
+    private void layer() {
+        if (lookahead.token == 21){//Layer
+            nextToken();
+            if(lookahead.token==2){//{
+                nextToken();
+                layerName();
+                layerParams();
+                if(lookahead.token!=3){
+                    throw new ParserException("Se espera }"
+                            + lookahead.sequence + " found instead");
+                }nextToken();
+            }else{
+                throw new ParserException("Se espera {"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Layer "
+                    + lookahead.sequence + " found instead");
+        }
+    }
+    private void layerName() {
+        if (lookahead.token == 22){//Layer_Name
+            nextToken();
+            if(lookahead.token==1){//:
+                nextToken();
+                if(lookahead.token==36){
+                    nextToken();
+                }else{
+                    throw new ParserException("Falta free text "
+                            + lookahead.sequence + " found instead");
+                }
+            }else{
+                throw new ParserException("Se espera :"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Layer_Name   "
+                    + lookahead.sequence + " found instead");
+        }
+    }
+    private void layerParams() {
+        if (lookahead.token == 23){//Layer_Params
+            nextToken();
+            if(lookahead.token==1){//:
+                nextToken();
+                if(lookahead.token==4){//[
+                    nextToken();
+                    paramNumbers();
+                    if(lookahead.token!=5){//]
+                        throw new ParserException("Se espera ]"
+                                + lookahead.sequence + " found instead");
+                    }nextToken();
+                } else{
+                    throw new ParserException("Se espera ]"
+                            + lookahead.sequence + " found instead");
+                }
+            }else{
+                throw new ParserException("Se espera :"
+                        + lookahead.sequence + " found instead");
+            }
+
+        }else{
+            throw new ParserException("Se espera el termino Layer_Params   "
+                    + lookahead.sequence + " found instead");
+        }
+    }
+    private void paramNumbers() {
+        if (lookahead.token == 35) {//numero
+            nextToken();
+            if (lookahead.token == 6){//,
+                nextToken();
+                d();
+            }else{
+                throw new ParserException("Se espera una , "
+                        + lookahead.sequence + " found instead");
+            }
+        }else{
+            throw new ParserException("Se espera un numero   "
+                    + lookahead.sequence + " found instead");
+        }
+    }
+    private void d() {
+        if(lookahead.token == 35){
+            if (lookahead.token == 35) {//numero
+                nextToken();
+                e();
+            }else{
+                throw new ParserException("Se espera un numero   "
+                        + lookahead.sequence + " found instead");
+            }
+        }else{
+        }
+    }
+    private void e() {
+        if(lookahead.token == 6){
+                if (lookahead.token == 6){//,
+                    nextToken();
+                    d();
+                }else{
+                    throw new ParserException("Se espera una , "
+                            + lookahead.sequence + " found instead");
+                }
+        }else{
+        }
+    }
+    private void putType() {
+        if(lookahead.token !=32 &&lookahead.token !=33&&lookahead.token !=34){
+            throw new ParserException("Se espera el termino NUMBER o CATEGORICAL o BINARY   "
+                    + lookahead.sequence + " found instead");
+        }else{
+            nextToken();
         }
     }
 }
