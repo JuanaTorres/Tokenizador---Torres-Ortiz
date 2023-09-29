@@ -1,9 +1,9 @@
 G {
-    T 	= {[, ], {, }, ',', FreeText, NUMBER, CTEGORICAL, BINARY}
+    T 	= {[, ], {, }, ',', FreeText, NUMBER, CATEGORICAL, BINARY}
     
     NT 	= {<Document>, <ModelName>, <ModelFamily>, <ModelFamilyName>, <Model_Type>, <ModelDescription>, <Inputs>,
 	   <InputList>, <A>, <InputName>, <InputType>, <Outputs>, <OutputsList>, <B>, <Output>, <OutputName>,
-	   <OutputType>, <Model>, <Layer>, <LayerName>, <LayerParams>, <LayerNumbers>, <D>
+	   <OutputType>, <Model>,<ListLayers>, <C>, <Layer>, <Layers>, <LayerName>, <LayerParams>, <ParamNumbers>, <D>, <E>, <putType>
 	  }
 
     S 	= {<Document>}
