@@ -314,7 +314,7 @@ public class Parser {
             nextToken();
             if(lookahead.token==2){//{
                 nextToken();
-                layers();
+                multipleLayers();
                 if(lookahead.token!=3){
                     throw new ParserException("Se espera },"
                             + lookahead.sequence + " se encontro");
@@ -327,6 +327,17 @@ public class Parser {
         }else{
             throw new ParserException("Se espera el termino Model, "
                     + lookahead.sequence + " se encontro");
+        }
+    }
+    private void multipleLayers(){
+        layers();
+        m();
+    }
+    private void m(){
+        if(lookahead.token == 20){//Layers
+            layers();
+            c();
+        }else{
         }
     }
     private void layers(){

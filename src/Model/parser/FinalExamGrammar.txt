@@ -31,7 +31,9 @@ G {
 	    <OutputName>	::= Output_Name:FreeText
 	    <OutputType>	::= Output_Type:<putType> 
 	    
-	    <Model>		::= Model{<Layers>}
+	    <Model>		::= Model{<MultiLayers>}
+	    <MultiLayer> ::= <Layers><M>
+	    <M>          ::= <Layers><M>|Epsilon
 	    <Layers>  ::= Layers{<ListLayers>}
 	    <ListLayers>	::= <Layer><C>
 	    <C>			::= <Layer<C>|Epsilon
@@ -40,7 +42,7 @@ G {
 	    <LayerParams>	::= Layer_Params: [ParamNumbers]
 	    <ParamNumbers>	::= NUMBER,<D>
 	    <D>			::= NUMBER<E>|Epsilon
-        <E>         ::= ,<D>| Epsilon
+	    <E>         ::= ,<D>| Epsilon
 	    <putType>		::= NUMBER|CATEGORICAL|BINARY
 	}
 }

@@ -122,7 +122,7 @@ public class Controller implements ActionListener {
                             String comm = matcher.replaceAll("");
 
                             tne.tokenize(comm.trim().toString());
-                            gui.getPanel2().getInputTextArea().setText(loadgui);
+                            gui.getPanel2().getInputTextArea().setText(comm);
                             gui.getPanel2().getTokenizeButton().setEnabled(true);
                         } catch (Lexerexception el) {
                             gui.jopMessage("Ocurrio un Error\nno se esta un caracter en los tokens",
