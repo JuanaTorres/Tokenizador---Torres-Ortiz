@@ -11,5 +11,5 @@ public class Tokeninfo {
         super();
         this.regex = regex;
         this.token = token;
-    }
+    } 
 }
