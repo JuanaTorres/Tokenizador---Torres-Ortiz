@@ -6,7 +6,7 @@ package Model.parser;
 //----------------------------------------------------
 
 /** CUP generated class containing symbol constants. */
-public class sym {
+public interface  sym {
   /* terminals */
   public static final int FreeText = 4;
   public static final int Layer_Name = 16;

@@ -4,37 +4,56 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.Reader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import javax.swing.JFileChooser;
 
-import Model.Lexerexception;
-import Model.ParserException;
-import Model.Token;
-import Model.Tokenize;
-import Model.parser.Parser;
+import Model.Lexer.*;
+import Model.ast.Document;
+import Model.parser.*;
 import View.View;
 
 public class Controller implements ActionListener {
 
     private View gui;
-    private Tokenize tne;
     private Boolean err;
-    private Parser p;
 
-    public Controller() {
+    public Controller() throws FileNotFoundException {
         err = false;
         gui = new View();
         gui.getPanel1().getLoadFileB().addActionListener(this);
         gui.getPanel1().getValidateTokensB().addActionListener(this);
         gui.getPanel2().getLoadTFileB().addActionListener(this);
         gui.getPanel2().getTokenizeButton().addActionListener(this);
-        tne = new Tokenize();
-        p = new Parser();
+        Reader reader = null;
 
+        File input = new File("SerieNumeros.txt");
+        
+        reader = new FileReader(input);
+
+        Lexer scanner = new Lexer(reader);  
+              
+        parser parser = new parser(scanner); 
+        
+        Document programa_axioma = null;
+       
+        try {
+        	programa_axioma = (Document) parser.parse().value;  
+        	programa_axioma.interpret();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    static int contexterror = 0;     
+
+    public static void error(String s) {
+        System.out.println((contexterror++) + ". " + s);
     }
 
     @Override
@@ -63,7 +82,7 @@ public class Controller implements ActionListener {
                                 int tokenid = Integer.parseInt(splitS[1].trim());
                                 load_gui = load_gui + line + "\n";
                                 try {
-                                    tne.add(splitS[0].trim(), tokenid);
+                                    //tne.add(splitS[0].trim(), tokenid);
                                     gui.getPanel1().getTokenTextArea().setText(load_gui);
                                     gui.getPanel1().getValidateTokensB().setEnabled(true);
                                 } catch (PatternSyntaxException ep) {
@@ -121,10 +140,10 @@ public class Controller implements ActionListener {
                             Matcher matcher = regexPattern.matcher(loadgui);
                             String comm = matcher.replaceAll("");
 
-                            tne.tokenize(comm.trim().toString());
+                            //tne.tokenize(comm.trim().toString());
                             gui.getPanel2().getInputTextArea().setText(comm);
                             gui.getPanel2().getTokenizeButton().setEnabled(true);
-                        } catch (Lexerexception el) {
+                        } catch (Exception el) {
                             gui.jopMessage("Ocurrio un Error\nno se esta un caracter en los tokens",
                                     "Error al Validar Tokens",
                                     2);
@@ -141,13 +160,13 @@ public class Controller implements ActionListener {
             }
         } else if (e.getActionCommand().equals("Tokenize")) {
             String out="";
-            try {
+            /*try {
             gui.getPanel2().getOutputTextArea().setText("==============TOKENS=================\n");
 			out = gui.getPanel2().getOutputTextArea().getText() + "";
             for (Token ton : tne.getTokens()) {
                 out += "[    Token:" + ton.token + "\tLexema:" + ton.sequence + "\tPosicion:" + ton.pos + "     ]\n";
             }
-            } catch (ParserException e1) {
+            } catch (Exception e1) {
                 gui.getPanel2().getOutputTextArea().setText("");
                 gui.jopMessage(e1.getMessage()+"\n",
                         "Error al tokenizar ",
@@ -157,12 +176,12 @@ public class Controller implements ActionListener {
             out+=("==============parser=================\n");
             out+=(p.parse(tne.getTokens()));
             gui.getPanel2().getOutputTextArea().setText(out);
-            } catch (ParserException el) {
+            } catch (Exception el) {
                 gui.getPanel2().getOutputTextArea().setText("");
                 gui.jopMessage(el.getMessage()+"\n",
                         "Error al Parser",
                         2);
-            }
+            }*/
         }
 
     }
