@@ -44,12 +44,10 @@ public class Tokenization_Panel extends JPanel{
 
         loadTFileB = new JButton("Load T.File");
         loadTFileB.setBounds(10, 370, 350, 50);
-		loadTFileB.setEnabled(false);
         add(loadTFileB);
         
         tokenizeButton = new JButton("Tokenize");
         tokenizeButton.setBounds(376, 370, 350, 50);
-		tokenizeButton.setEnabled(false);
         add(tokenizeButton);
 
     }
